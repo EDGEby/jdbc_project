@@ -76,10 +76,10 @@ public class ProductDAOImpl implements ProductDAO {
                     case "String":
                         value = rs.getString(name);
                         break;
-                    case "Integer":
+                    case "int":
                         value = rs.getInt(name);
                         break;
-                    case "Double":
+                    case "double":
                         value = rs.getDouble(name);
                         break;
                     //TODO - add missed types
