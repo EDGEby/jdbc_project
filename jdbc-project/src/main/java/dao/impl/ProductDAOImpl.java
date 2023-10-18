@@ -28,22 +28,22 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product findById(String key) {
-       try(Connection conn = DBUtils.getConnection();){
+        try(Connection conn = DBUtils.getConnection();) {
+
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "SELECT * FROM classicmodels.products WHERE productCode = ?");
+            pstmt.setString(1, key);
+
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next())
+                return map(new Product() , rs);
 
 
-          PreparedStatement pstmt =  conn.prepareStatement("SELECT * FROM classicmodels.products WHERE productCode = ? ");
-          pstmt.setString(1,key);
 
-          ResultSet rs = pstmt.executeQuery();
-          if(rs.next()){
-              Product product= createProduct(rs);
-              return product;
-          }
 
-       }catch (SQLException e){
-           e.printStackTrace();
-          // throw new RuntimeException(e);
-       }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
